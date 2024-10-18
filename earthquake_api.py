@@ -1,10 +1,9 @@
 import requests
-from main import main, getCoordinates
+from main import main
 from datetime import datetime
 
-# get location from main.py module
-cityState = main()
-location_coordinates = getCoordinates(cityState) # get geocoded coordinates from main.py
+
+location_coordinates = main() # get geocoded coordinates from main.py
 latitude = location_coordinates[0] # get latitude
 longitude = location_coordinates[1] # get longitude
 
@@ -19,16 +18,29 @@ earthquake_url = (f'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geoj
                   f'&minmagnitude=3.0')
 
 # where all functions get called from
-def main():
-    earthquake_data = earthquake_data_request(earthquake_url)
-    get_wanted_data = location_magnitude_date(earthquake_data)
-    display_earthquake_data(get_wanted_data)
+def earthquake_main():
+    earthquake_data, is_error = earthquake_data_request(earthquake_url)  # is_error checks if an error occurred is_error is true
+    # if no error is_error is false
+    # if an error was returned, then return the error message to wherever it was called
+    if is_error:
+        return earthquake_data
+    # else get only the location, magnitude and date data
+    else:
+        get_wanted_data = location_magnitude_date(earthquake_data) # gets location, magnitude and date data from the earthquake json data
+        display_earthquake_data(get_wanted_data)  # this function is for testing purposes only
+        return get_wanted_data
 
 # api call request
 # returns all earthquake data
 def earthquake_data_request(url):
-    earthquake_request = requests.get(url).json()
-    return earthquake_request
+    try:
+        earthquake_request = requests.get(url).json()
+        return earthquake_request, False  # return false if no errors occurred
+
+    except Exception as e:
+        return f'{e}: There was a problem accessing the USGS API.', True  # return true and error message if an error occurred
+
+
 
 # gets only the earthquake location, magnitude and converted datetime date and puts
 # that data in a list that is returned
@@ -47,10 +59,12 @@ def location_magnitude_date(data):
 
     return magnitude_location_date_list
 
+
 # displays the location, magnitude, data list data to the user
+# **** This function is used for testing that earthquake data is being returned ***
 def display_earthquake_data(needed_data):
     if not needed_data:
-        print(f'There are no earthquakes in {cityState}.')
+        print(f'There are no earthquakes at this location.')
     else:
         for earthquake in needed_data:
             print(earthquake)
@@ -59,4 +73,4 @@ def display_earthquake_data(needed_data):
 
 
 if __name__ == '__main__':
-    main()
+    earthquake_main()
