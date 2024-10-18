@@ -37,8 +37,8 @@ def earthquake_data_request(url):
         earthquake_request = requests.get(url).json()
         return earthquake_request, False  # return false if no errors occurred
 
-    except:
-        return 'Error: There was a problem accessing th USGS API.', True  # return true and error message if an error occurred
+    except Exception as e:
+        return f'{e}: There was a problem accessing the USGS API.', True  # return true and error message if an error occurred
 
 
 
