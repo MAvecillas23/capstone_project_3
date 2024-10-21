@@ -2,6 +2,20 @@
 
 {% block content %}
 
-<h1>City app</h1>
+<div class="container">
+    <div id="header">
+        <img alt="Small icon of a city skyline" src="./static/cityscape.png" id="header-icon">
+        <h1>How Tough Is My City?</h1>
+        <div id="header-text">
+            Let's find out how badly Mother Earth wants to wipe your city off the face of the planet. Enter your city below.
+        </div>
+    </div>
+    <div class="mb-3">
+        <form action="/get_data" method="get" id="form-location">
+            <input type="text" id="location-input" class="form-control" maxlength=60 placeholder="Example: Minneapolis, MN">
+            <input type="submit" id="btn-submit" class="btn btn-primary">
+        </form>
+    </div>
+</div>
 
 {% endblock %}
