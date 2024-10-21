@@ -1,28 +1,10 @@
-import geocoder
+import geocoding as gc
+
 
 def main():
     location = input('Please enter location you would like data on (city, state): ')
-    get_coordinates = getCoordinates(location)
-
-
-def getCoordinates(location):
-    get_data = geocoder.arcgis(location)
-    coordinates = get_data.latlng
-    return coordinates
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    coordinates = gc.getCoordinates(location)
+    print(coordinates)  # testing
 
 
 if __name__ == '__main__':
