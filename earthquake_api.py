@@ -23,6 +23,7 @@ def earthquake_main():
     # if no error is_error is false
     # if an error was returned, then return the error message to wherever it was called
     if is_error:
+        print(earthquake_data) # print for testing
         return earthquake_data
     # else get only the location, magnitude and date data
     else:
@@ -38,7 +39,7 @@ def earthquake_data_request(url):
         return earthquake_request, False  # return false if no errors occurred
 
     except Exception as e:
-        return f'{e}: There was a problem accessing the USGS API.', True  # return true and error message if an error occurred
+        return f'There was a problem accessing the USGS API: {e}', True  # return true and error message if an error occurred
 
 
 
