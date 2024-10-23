@@ -1,5 +1,5 @@
 import requests
-import geocoder
+from main import main as get_location_data 
 import os
 
 # FEMA API base URL
@@ -11,11 +11,11 @@ def main():
         print("API key not found! Please set the 'FEMA_API_KEY' environment variable.")
         return
 
-    location = input('Please enter the location you would like data on (city, state): ')
-    coordinates = getCoordinates(location)
+    
+    coordinates = get_location_data # get coordindates from main.py
     
     if not coordinates:
-        print(f"Could not retrieve coordinates for {location}. Please try again.")
+        print(f"Could not retrieve coordinates. Please try again.")
         return
 
     flood_data, error = get_flood_risk(coordinates, api_key)
@@ -29,16 +29,6 @@ def main():
             print('It\'s not safe to live in this area.')
         else:
             print('The area is safe to live.')
-
-def getCoordinates(location):
-  
-    location_data = geocoder.arcgis(location)
-    if location_data.latlng:
-        print(f"Coordinates for {location}: {location_data.latlng}")
-        return location_data.latlng
-    else:
-        print(f"Could not find the location for {location}.")
-        return None
 
 def get_flood_risk(coordinates, api_key):
     lat, long = coordinates
