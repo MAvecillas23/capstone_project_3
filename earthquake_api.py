@@ -4,11 +4,8 @@ import geocoding as gc
 
 
 # where all functions get called from
-def earthquake_main(location):
-    print(location)
-    location_coordinates = gc.getCoordinates(location) # get geocoded coordinates from main.py
-    latitude = location_coordinates[0] # get latitude
-    longitude = location_coordinates[1] # get longitude
+# earthquake_main should be called from app.py with latitude and longitude coordinates
+def earthquake_main(latitude, longitude):
 
     # query url with appropriate latitude and longitude parameters
     # url is also querying for all earthquake data in the last 3 years in a 15 mile radius
