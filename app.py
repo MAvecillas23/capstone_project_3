@@ -14,14 +14,18 @@ def index():
 
 @app.route("/get-data")
 def get_all_data():
+    # get coordinates using input city, state
     location = request.args.get('location')
     lat, long = gc.getCoordinates(location)
+    
+    # earthquake_api section
+    earthquake_info = earthquake_api.earthquake_main(lat, long)
 
     flood_info = Flood_API.get_flood_risk ( lat, long )
     
 
 
-    return render_template('results.html', Flood_info=flood_info)
+    return render_template('results.html', earthquake_info=earthquake_info, Flood_info=flood_info)
 
 
 

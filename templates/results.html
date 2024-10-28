@@ -2,6 +2,25 @@
 
 {% block content %}
 
+<!--Earthquake section of the results webpage... earthquake_info has a list of
+earthquake information... display the list of earthquakes. If earthquake_info list is empty...
+display a message telling user there are no earthquakes.-->
+<div>
+    {% if earthquake_info %}
+    <ul>
+        {% for earthquake in earthquake_info %}
+        <li>{{ earthquake }}</li>
+        {% endfor %}
+    </ul>
+
+    {% else %}
+    <!-- this will hold a there are no earthquakes message-->
+    <p>There are no earthquakes in this location</p>
+
+    {% endif %}
+
+    {% endblock %}
+</div>
 
 <p>{{Flood_info}}</p>
 
