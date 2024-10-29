@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
 import geocoding as gc
-import Flood_API 
+import api_flood 
 # import apis and db module here
 
 # initialize Flask app object
@@ -17,7 +17,7 @@ def get_all_data():
     location = request.args.get('location')
     lat, long = gc.getCoordinates(location)
 
-    flood_info = Flood_API.get_flood_risk ( lat, long )
+    flood_info = api_flood.get_flood_risk ( lat, long )
     
 
 
