@@ -31,10 +31,11 @@ def earthquake_main(latitude, longitude):
 # api call request
 # returns all earthquake data
 def earthquake_data_request(url):
-    earthquake_request = requests.get(url).json()
+    earthquake_request = requests.get(url) # make url request
     earthquake_request.raise_for_status()  # checks that there are no http errors...raises an error if there is...
+    earthquake_json = earthquake_request.json()  # convert earthquake request to json data
     # errors are handled in app.py
-    return earthquake_request
+    return earthquake_json
 
 # gets only the earthquake location, magnitude and converted datetime date and puts
 # that data in a list that is returned

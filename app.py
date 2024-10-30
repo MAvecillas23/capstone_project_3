@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import geocoding as gc
-import Flood_API
+import earthquake_api
+import api_flood
 import air_pollution_api
 # import apis and db module here
 
@@ -26,16 +27,10 @@ def get_all_data():
     
     flood_info = api_flood.get_flood_risk ( lat, long )
     
-
     return render_template('results.html',
                            earthquake_info=earthquake_info,
                            air_info=air_info,
                            Flood_info=flood_info)
-
-
-
-
-
 
 if __name__ == "__main__":
     app.run()
