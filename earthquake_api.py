@@ -50,7 +50,7 @@ def location_magnitude_date(data):
         time = wanted_data['time']
         date = datetime.fromtimestamp(time / 1000).date()
         magnitude = wanted_data['mag']
-        magnitude_location_date_list.append(f'Location: {location} *** Date: {date} *** Magnitude: {magnitude}')
+        magnitude_location_date_list.append(f'Location: {location:<35} Date: {date:<30}Magnitude: {magnitude}')
 
     return magnitude_location_date_list
 
