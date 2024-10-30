@@ -2,10 +2,13 @@
 
 {% block content %}
 
+<h1 id="results-title">This is how Dangerous your City is:</h1>
+
 <!--Earthquake section of the results webpage... earthquake_info has a list of
 earthquake information... display the list of earthquakes. If earthquake_info list is empty...
 display a message telling user there are no earthquakes.-->
-<div>
+<div class="api-results">
+    <h2>Earthquakes in my city</h2>
     {% if earthquake_info %}
     <ul>
         {% for earthquake in earthquake_info %}
@@ -21,11 +24,29 @@ display a message telling user there are no earthquakes.-->
 
     {% endblock %}
 </div>
+<br>
 
+<!--air pollution api results-->
+<div class="api-results">
+    <h2>Air pollution in my city:</h2>
+
+
+
+
+</div>
+<br>
+
+<!--flood api results-->
+<div class="api-results">
+    <h2>Floods in my city:</h2>
 <p>{{Flood_info}}</p>
+</div>
+<br>
 
 
-
+<!--Link that takes user to the homepage-->
+<p>Try another location?</p>
+<a href="/">Enter another city</a>
 
 
 
