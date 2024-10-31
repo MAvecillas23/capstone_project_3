@@ -9,19 +9,11 @@ earthquake information... display the list of earthquakes. If earthquake_info li
 display a message telling user there are no earthquakes.-->
 <div class="api-results">
     <h2>Earthquakes in my city</h2>
-    {% if earthquake_info %}
     <ul>
         {% for earthquake in earthquake_info %}
         <li>{{ earthquake }}</li>
         {% endfor %}
     </ul>
-
-    {% else %}
-    <!-- this will hold a there are no earthquakes message-->
-    <p>There are no earthquakes in this location</p>
-
-    {% endif %}
-
 </div>
 <br>
 

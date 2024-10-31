@@ -10,8 +10,10 @@ db = SqliteDatabase("app.db")
 
 class BaseModel(Model):
     """Model class which the Results class will extend."""
-class Meta:
-    database = db
+
+    class Meta:
+        database = db
+
 
 
 class Results(BaseModel):
