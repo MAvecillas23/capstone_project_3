@@ -1,6 +1,6 @@
 import requests
 import geocoder
-import main 
+import main
 import os
 from pprint import pprint
 
@@ -50,8 +50,12 @@ def make_request(lat, lng):
     }
 
     response = requests.get(url, headers=headers, params=params)
-    response.raise_for_status()  # Raise an exception for 400 or 500 errors
+    try:
+        response.raise_for_status()  # Raise an exception for 400 or 500 errors
+    except requests.HTTPError:
+        raise FloodAPIError("Unable to retrieve flood risk data.")
+
     data = response.json()  # Parse JSON response
     return data
 
- 
+
