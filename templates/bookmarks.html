@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+{% for item in db_list %}
+    <p>{{ item }}</p>
+{% endfor %}
+
+
+<p>Enter the id number of item you want to see information on</p>
+<input type="number">
+<button>Enter</button>
+
+<div>
+<!--    Earthquake info goes here-->
+</div>
+
+
+<div>
+<!--    air pollution info goes here-->
+</div>
+
+
+<div>
+<!--    flood info goes here-->
+</div>
+
+
+
+{% endblock %}
