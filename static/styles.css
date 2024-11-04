@@ -69,6 +69,7 @@ body {
     background-color: var(--header-fg-color);
     border: 2px solid var(--btn-border-color);
 }
+
 .safe {
     color: green;  /* Color for safe */
 }
@@ -79,4 +80,13 @@ body {
 
 .unknown {
     color: orange; /* Color for unknown */
+}
+
+#results-title {
+    color: var(--header-fg-color);
+    text-align: center;
+}
+
+#results-container {
+    margin: 1em;
 }
