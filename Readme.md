@@ -55,8 +55,8 @@ macOS/Linux:
         source venv/bin/activate 
         pip install -r requirements.txt
 2. Set environment variables for Open Weather Map, and Flooding API keys:
-    export OWM_API_KEY= "api key"
-    export FEMA_API_KEY= "api key"
+    export OWM_API_KEY= api key
+    export FEMA_API_KEY= api key
 3. Run `python app.py` and access `http://localhost:5000`.
 
 Windows:
@@ -66,6 +66,6 @@ Windows:
 
 2. set environment variables for Open Weather Map, and Flooding API keys:
 
-    set OWM_API_KEY= "api key"
-    set FEMA_API_KEY= "api key"
+    set OWM_API_KEY= api key
+    set FEMA_API_KEY= api key
 3. Run `python app.py` and access `http://localhost:5000`.
