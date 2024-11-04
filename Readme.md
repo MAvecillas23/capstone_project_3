@@ -7,11 +7,12 @@ Features
 
     1.Earthquake Data
 
-    -Description: Retrieves earthquake information within a 15 mile radius of the specified location.
+    - Description: Retrieves earthquake information within a 15-mile radius of the specified location.
     
-    -Data Returned: 
-        -Date of each earthquake
-        -Magnitude 3.0 or higher
+    - Data Returned: 
+        - Date of each earthquake
+        - Magnitude (3.0 or higher)
+        - Location (relative to the specified city, including coordinates or nearby landmarks)
     
     -Timeframe: Covers earthquakes from the last 3 years.
 
@@ -47,3 +48,19 @@ Installation
     -Install Flask and Requests
     -Set up API keys
     
+Dependencies: Python >=3.12
+
+macOS/Linux:
+1. Run  python -m venv venv 
+        source venv/bin/activate 
+        pip install -r requirements.txt
+2. Set the export [API_KEY_ENVIRONMENT_VARIABLE_NAME]=your_api_key_here
+3. Run `python app.py` and access `http://localhost:5000`.
+
+Windows:
+1. Run python -m venv venv
+   venv\Scripts\activate
+   pip install -r requirements.txt
+
+2. set [API_KEY_ENVIRONMENT_VARIABLE_NAME]=your_api_key_here
+3. Run `python app.py` and access `http://localhost:5000`.
