@@ -4,14 +4,21 @@
 
 <h1>Bookmarks</h1>
 
-{% for entry in db_list %}
-    <p>{{ entry }}</p>
-{% endfor %}
+{% if db_list.len > 0 %}
+    {% for entry in db_list %}
+        <p>{{ entry }}</p>
+    {% endfor %}
+{% else %}
+    <p>No results in your bookmarks</p>
+{% endif %}
 
 
-<p>Enter the id number of item you want to see information on</p>
-<input type="number">
-<button>Enter</button>
+<p>Enter the id number of the bookmark you'd like more information on</p>
+
+<form>
+    <input type="submit" value="Go">
+    <button>Enter</button>
+</form>
 
 <h2>Results:</h2>
 
