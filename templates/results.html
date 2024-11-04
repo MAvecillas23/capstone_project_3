@@ -15,13 +15,11 @@
         <p> Within a 24-kilometer radius of your location</p>
         <p> With a magnitude of 3.0 or higher (anything less is hardly felt by people)</p>
         <p>Results:</p>
-        <ul>
         {% for earthquake in earthquake_info %}
-        <li>{{ earthquake }}</li>
+        <p>{{ earthquake }}</p>
         {% endfor %}
-        </ul>
-    </div>
-    <br>
+</div>
+<br>
 
     <!--air pollution api results-->
     <div class="api-results">
