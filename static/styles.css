@@ -75,3 +75,6 @@ body {
     text-align: center;
 }
 
+#results-container {
+    margin: 1em;
+}
