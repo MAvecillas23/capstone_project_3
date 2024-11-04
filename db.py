@@ -23,9 +23,6 @@ class Results(BaseModel):
    # do we need lat long?
     # lat = FloatField(null=False)
     # long = FloatField(null=False)
-
-    #time = BigIntegerField(default=floor(unix_time()), null=False)  #what is this?
-
     date_saved = DateField(null=False)
 
     # these attributes hold the api results data
@@ -69,6 +66,7 @@ def main():
     display_id_location()
 
 
+
 # the idea is that this will return all locations and their primary id so user can determine
 # what location they want to see information on
 def display_id_location():
@@ -86,11 +84,14 @@ def display_id_location():
 
 # save all api_data, and location and generate the date data was saved
 def save_api_info(city_state, earthquake_result, aqi_result, flood_result):
+
+    earthquake_str = '@'.join(earthquake_result) # join list with @ between... makes using sep='@' easier when
+                                                # displaying to user
     new_entry = Results(
                         location=city_state,
                         date_saved=datetime.date.today(),
                         aqi=aqi_result,
-                        earthquakes=earthquake_result,
+                        earthquakes=earthquake_str,
                         flood=flood_result)
     new_entry.save()
 
@@ -102,11 +103,11 @@ def save_api_info(city_state, earthquake_result, aqi_result, flood_result):
 # will make displaying information easier in bookmarks page
 def get_api_info(db_id):
     result = Results.get_by_id(db_id)
-
+    earthquake_list = result.earthquakes.split('@') # turns joined string back to a list where the seperator is @
     return {'location': result.location,
             'date': result.date_saved,
             'aqi': result.aqi,
-            'earthquake': result.earthquakes,
+            'earthquake': earthquake_list,
             'flood': result.flood
             }
 
