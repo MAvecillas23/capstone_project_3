@@ -28,10 +28,24 @@ display a message telling user there are no earthquakes.-->
 
 <!--flood api results-->
 <div class="api-results">
-    <h2>Floods in my city:</h2>
-<p>{{Flood_info}}</p>
+    <h2>Flood Risk in My City</h2>
+    <p>Using FEMA's data, we assess the flood risk in your location:</p>
+    <ul>
+        <li>Zone A or Zone V: High-risk flood zones</li>
+        <li>Zone X: Low-risk flood zone</li>
+        <li>Other zones: Unknown flood risk</li>
+    </ul>
+
+    <p><strong>Flood Information:</strong> {{ Flood_info }}</p>  <!-- Display flood info -->
+
+    <p>
+        <strong>Flood Risk Level:</strong>
+        <span class="{% if flood_risk == 'safe' %}safe{% elif flood_risk == 'not safe' %}not-safe{% else %}unknown{% endif %}">
+            {{ flood_risk | upper }}
+        </span>
+    </p>
+    <br>
 </div>
-<br>
 
 
 <!--Link that takes user to the homepage-->
