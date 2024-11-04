@@ -6,7 +6,7 @@ from pprint import pprint
 
 # FEMA API base URL
 url = 'https://api.nationalflooddata.com/v3/data'
-api_key = 'gbs3EAV35B8unwSBrApij6l02MS8JHAR2AZb2wg2'
+api_key = os.environ.get('FEMA_API_KEY')
 
 
 class FloodAPIError(Exception):
@@ -31,9 +31,9 @@ Raises KeyError and IndexError """
     # Check the flood zone
     risk_levels = [zone['fld_zone'] for zone in flood_zones]
     if 'A' in risk_levels or 'V' in risk_levels:  # High-risk zones
-        return 'not safe'
+        return 'NOT SAFE'
     elif 'X' in risk_levels:  # Low-risk zones
-        return 'safe'
+        return 'SAFE'
     else:
         return 'unknown flood risk'
 
