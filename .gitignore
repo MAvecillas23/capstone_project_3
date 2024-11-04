@@ -1,1 +1,7 @@
-__pycache__
+__pycache__/
+*.*~
+.gitignore
+diff.txt
+venv/
+.env
+app.db

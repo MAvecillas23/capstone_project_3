@@ -37,7 +37,7 @@ def get_air_pollution(coordinates: list) -> int:
     # will raise an HTTPError if the request was unsuccessful
     try:
         response.raise_for_status()
-    except requests.HTTPError:
-        raise AirPollutionAPIError
+    except requests.HTTPError as e:
+        raise AirPollutionAPIError(f"Unable to fetch air quality data: {e.strerror}")
 
     return response.json()["list"][0]["main"]["aqi"]
