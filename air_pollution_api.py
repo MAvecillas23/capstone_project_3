@@ -26,11 +26,15 @@ def get_air_pollution(coordinates: list) -> int:
     """
 
     endpoint = "http://api.openweathermap.org/data/2.5/air_pollution"
-    payload = {
-        "lat": coordinates[0],
-        "lon": coordinates[1],
-        "appid": os.environ["OWM_API_KEY"],
-    }
+    try:
+        payload = {
+            "lat": coordinates[0],
+            "lon": coordinates[1],
+            "appid": os.environ["OWM_API_KEY"],
+        }
+    except KeyError:
+        print("ERROR: OWM_API_KEY not set")  # logs to console
+        raise AirPollutionAPIError("Unable to set request parameters. Did you set OWM_API_KEY?")
 
     response = requests.get(endpoint, params=payload)
 
