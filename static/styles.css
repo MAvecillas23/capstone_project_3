@@ -70,6 +70,18 @@ body {
     border: 2px solid var(--btn-border-color);
 }
 
+.safe {
+    color: green;  /* Color for safe */
+}
+
+.not-safe {
+    color: red;    /* Color for not safe */
+}
+
+.unknown {
+    color: orange; /* Color for unknown */
+}
+
 #results-title {
     color: var(--header-fg-color);
     text-align: center;

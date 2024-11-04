@@ -46,14 +46,25 @@
 
         <p>The air quality index of your location is: {{ air_info }}</p>
 
-    </div>
-    <br>
+</div>
+<br>
 
-    <!--flood api results-->
-    <div class="api-results">
-        <h2>Floods in my city:</h2>
-        <p>{{Flood_info}}</p>
-    </div>
+<!--flood api results-->
+<div class="api-results">
+
+    <h2>Flood Risk in My City</h2>
+    <p>Using FEMA's data, we assess the flood risk in your location:</p>
+
+    <p><strong>Flood Information:</strong> <span class="{% if Flood_info == 'SAFE' %}safe{% elif Flood_info == 'NOT SAFE' %}not-safe{% else %}unknown{% endif %}">{{ Flood_info }}</span></p>  <!-- Display flood info -->
+
+    <!-- Explanation of flood risk levels -->
+    <p><strong>What the flood risk levels mean:</strong></p>
+    <ul>
+        <li><span class="safe">Safe</span>: Low flood risk; location generally safe from flooding.</li>
+        <li><span class="not-safe">Not Safe</span>: High flood risk; location has significant flood risk.</li>
+        <li><span class="unknown">Unknown</span>: No specific flood risk information available for this location.</li>
+    </ul>
+</div>
     <br>
 
 
