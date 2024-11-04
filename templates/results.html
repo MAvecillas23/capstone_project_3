@@ -55,7 +55,7 @@
     <h2>Flood Risk in My City</h2>
     <p>Using FEMA's data, we assess the flood risk in your location:</p>
 
-    <p><strong>Flood Information:</strong> <span class="{% if Flood_info == 'safe' %}safe{% elif Flood_info == 'not safe' %}not-safe{% else %}unknown{% endif %}">{{ Flood_info }}</span></p>  <!-- Display flood info -->
+    <p><strong>Flood Information:</strong> <span class="{% if Flood_info == 'SAFE' %}safe{% elif Flood_info == 'NOT SAFE' %}not-safe{% else %}unknown{% endif %}">{{ Flood_info }}</span></p>  <!-- Display flood info -->
 
     <!-- Explanation of flood risk levels -->
     <p><strong>What the flood risk levels mean:</strong></p>
