@@ -1,7 +1,4 @@
 from peewee import *
-from peewee import IntegrityError
-from time import time as unix_time
-from math import floor
 import datetime
 
 
@@ -20,9 +17,7 @@ class Results(BaseModel):
     id = AutoField(primary_key=True)
     location = CharField(unique=True, null=False)
 
-   # do we need lat long?
-    # lat = FloatField(null=False)
-    # long = FloatField(null=False)
+    # generates date api_data was saved
     date_saved = DateField(null=False)
 
     # these attributes hold the api results data
@@ -36,34 +31,8 @@ db.connect()
 db.create_tables([Results])
 
 # clears database so no repeat data is generated
-Results.delete().execute()
-
-
-
-# Test data to ensure functions are outputting desired data
-earthquake1 = ['1', '2', '3']
-air_index1 = 2
-flooding1 = 'not safe'
-location1 = 'Minneapolis, MN'
-blah1 = ['g', 'r', 'l']
-blah2 = 5
-blah3 = 'safe'
-blah4 = 'Blah, Indiana'
-
-
-# main function is for test purposes
-# remove for final product
-def main():
-    save_api_info(location1, earthquake1, air_index1, flooding1)
-    save_api_info(blah4, blah1, blah2, blah3)
-
-    test_info = get_api_info(2)
-    test_info2 = get_api_info(1)
-
-    print(test_info)
-    print(test_info2)
-
-    display_id_location()
+# uncomment below when officially done
+# Results.delete().execute()
 
 
 
@@ -76,8 +45,6 @@ def display_id_location():
     for i in id_location:
         display_list.append(f'{i.id}      {i.location}     {i.date_saved}')
 
-    # for testing... remove in final product
-    print(display_list)
 
     return display_list
 
@@ -111,13 +78,11 @@ def get_api_info(db_id):
             'flood': result.flood
             }
 
+# deletes an entry when user enters an id to delete
+def delete_entry(db_id):
+    Results.delete().where(Results.id == db_id).execute()
 
 
-
-
-# remove in final product
-if __name__ == '__main__':
-    main()
 
 
 
