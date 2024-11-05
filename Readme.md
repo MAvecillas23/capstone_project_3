@@ -49,13 +49,15 @@ Installation
 Dependencies: Python >=3.12
 
 macOS/Linux:
-1. Run  python -m venv venv 
-        source venv/bin/activate 
-        pip install -r requirements.txt
-2. Set environment variables for Open Weather Map, and Flooding API keys:
+1. Run
    ```bash
-    export OWM_API_KEY=api key
-    export FEMA_API_KEY=api key
+   python -m venv venv 
+   source venv/bin/activate 
+   pip install -r requirements.txt
+3. Set environment variables for Open Weather Map, and Flooding API keys:
+   ```bash
+   export OWM_API_KEY=api key
+   export FEMA_API_KEY=api key
    ```
 4. Run `python app.py` and access `http://localhost:5000`.
 
