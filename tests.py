@@ -63,6 +63,5 @@ class TestAirQualityAPI(TestCase):
         self.assertIn("Unable to fetch air quality data", str(context.exception))
 
 
-
 if __name__ == "__main__":
     unittest.main()
