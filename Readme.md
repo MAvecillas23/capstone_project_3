@@ -21,8 +21,7 @@ Features
 - Description: Evaluates flood risk for the specified location based on FEMA's National Flood Data.
 
 *Data Returned:*
-- Flood Zone level: The program returns whether the are is "safe","not safe" or "unknown flood risk" 
-- Flood Zone Information: Zone A and  Zone V represent high-risk flood zones whereas Zone X represents a low-risk flood zone.  
+- Flood Zone level: The program returns whether the are is "safe","not safe" or "unknown flood risk"
 
 3.Air Pollution
 
