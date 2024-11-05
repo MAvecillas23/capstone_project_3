@@ -1,8 +1,12 @@
 import requests
-import geocoder
-import main
 import os
-from pprint import pprint
+
+
+class FloodAPIError(Exception):
+    """Raised when requests made to the flood API are unsuccessful."""
+
+    def __init__(self, msg):
+        self.msg = msg
 
 # FEMA API base URL
 url = 'https://api.nationalflooddata.com/v3/data'
@@ -11,13 +15,6 @@ try:
 except KeyError:
     print("ERROR: FEMA_API_KEY not set")
     raise FloodAPIError("Did you forget to set FEMA_API_KEY?")
-
-
-class FloodAPIError(Exception):
-    """Raised when requests made to the flood API are unsuccessful."""
-
-    def __init__(self, msg):
-        self.msg = msg
 
 
 def get_flood_risk(lat, lng):
@@ -35,9 +32,9 @@ Raises KeyError and IndexError """
     # Check the flood zone
     risk_levels = [zone['fld_zone'] for zone in flood_zones]
     if 'A' in risk_levels or 'V' in risk_levels:  # High-risk zones
-        return 'not safe'
+        return 'NOT SAFE'
     elif 'X' in risk_levels:  # Low-risk zones
-        return 'safe'
+        return 'SAFE'
     else:
         return 'unknown flood risk'
 
