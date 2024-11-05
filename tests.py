@@ -38,6 +38,7 @@ class TestAirQualityAPI(TestCase):
         """Test if a valid request to the air quality API receives
         a valid response.
         """
+        # create a mock response object and set its body
         mock_response = Mock()
         mock_response.json.return_value = self.mock_response_ok
         mock_response.raise_for_status = Mock()
@@ -61,9 +62,11 @@ class TestAirQualityAPI(TestCase):
 
         coordinates = [0, 0]
 
+        # use the context manager to "catch" any exceptions
         with self.assertRaises(ap.AirPollutionAPIError) as context:
             ap.get_air_pollution(coordinates)
 
+        # and access them from the context object
         self.assertIn("Unable to fetch air quality data", str(context.exception))
 
     @patch.dict("os.environ", {}, clear=True)
