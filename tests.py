@@ -99,7 +99,7 @@ class TestEarthquakeAPI(TestCase):
             ],
         }
         cls.mock_good_data = [
-            "Location: 128km SSW of Poland Date: 2014-01-01Magnitude: 2.4"
+            "128km SSW of Poland | Earthquake Date: 2014-01-01 | Magnitude: 2.4"
         ]
 
     @patch("earthquake_api.requests.get")
@@ -137,7 +137,7 @@ class TestFloodAPI(TestCase):
 
         response = af.get_flood_risk(*self.coordinates)
 
-        self.assertEqual(response, "not safe")
+        self.assertEqual(response, "NOT SAFE")
 
 
 if __name__ == "__main__":
