@@ -3,6 +3,7 @@ import geocoding as gc
 import earthquake_api
 import api_flood
 import air_pollution_api
+import db
 import requests
 # import apis and db module here
 
@@ -44,6 +45,19 @@ def get_all_data():
                            earthquake_info=earthquake_info,
                            air_info=air_info,
                            Flood_info=flood_info)
+
+
+# accesses the bookmarks page and talks with the app.db database to display
+# data and ask user to enter an id to see more data
+@app.route("/bookmarks")
+def get_bookmarks_data():
+    db_list = db.display_id_location()
+    entry_id = request.args.get('id')
+    entry = db_list[entry_id]
+
+    return render_template('bookmarks.html', db_list=db_list, entry=entry)
+
+
 
 if __name__ == "__main__":
     app.run()

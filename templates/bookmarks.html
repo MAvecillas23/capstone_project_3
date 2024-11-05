@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Bookmarks</h1>
+
+{% if db_list.len > 0 %}
+    {% for entry in db_list %}
+        <p>{{ entry }}</p>
+    {% endfor %}
+{% else %}
+    <p>No results in your bookmarks</p>
+{% endif %}
+
+
+<p>Enter the id number of the bookmark you'd like more information on</p>
+<form>
+    <input name="id" type="number">
+    <input type="submit" value="Enter">
+</form>
+
+<h2>Results:</h2>
+
+<p>Location: {{ entry.location }}</p>
+<p>Date saved: {{ entry.date_saved }}</p>
+
+<h3>Earthquakes</h3>
+<div>
+<!--    Earthquake info goes here-->
+    {% for earthquake in entry.earthquake %}
+    <p>{{ earthquake }}</p>
+    {% endfor %}
+</div>
+
+<h3>Air Quality</h3>
+<div>
+<!--    air pollution info goes here-->
+    {{ entry.aqi }}
+</div>
+
+<h3>Floods</h3>
+<div>
+<!--    flood info goes here-->
+    {{ entry.flood }}
+</div>
+
+
+
+{% endblock %}
