@@ -15,7 +15,7 @@ class BaseModel(Model):
 class Results(BaseModel):
     # all attributes for the db table
     id = AutoField(primary_key=True)
-    location = CharField(unique=True, null=False)
+    location = CharField(null=False)
 
     # generates date api_data was saved
     date_saved = DateField(null=False)

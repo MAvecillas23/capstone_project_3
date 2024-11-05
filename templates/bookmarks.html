@@ -14,7 +14,7 @@
 
 
     <p>Enter the id number of the bookmark you'd like more information on</p>
-    <form>
+    <form action="/bookmarks">
         <input name="id" type="number">
         <input type="submit" value="Enter">
     </form>
@@ -22,8 +22,7 @@
     {% if entry %}
     <h2>Results:</h2>
 
-    <p>Location: {{ entry["location"] }}</p>
-    <p>Date saved: {{ entry.date_saved }}</p>
+    <p>Location: {{ entry.location }}</p>
 
     <h3>Earthquakes</h3>
     <div>
