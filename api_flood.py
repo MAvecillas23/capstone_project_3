@@ -6,14 +6,18 @@ from pprint import pprint
 
 # FEMA API base URL
 url = 'https://api.nationalflooddata.com/v3/data'
-api_key = os.environ.get('FEMA_API_KEY')
+try:
+        api_key = os.environ.get("FEMA_API_KEY")
+except KeyError:
+ print("ERROR: FEMA_API_KEY not set")
+raise FloodAPIError("Did you forget to set FEMA_API_KEY?")
 
 
 class FloodAPIError(Exception):
-    """Raised when requests made to the flood API are unsuccessful."""
+ """Raised when requests made to the flood API are unsuccessful."""
 
-    def __init__(self, msg):
-        self.msg = msg
+def __init__(self, msg):
+  self.msg = msg
 
 
 def get_flood_risk(lat, lng):
