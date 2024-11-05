@@ -52,8 +52,10 @@ def get_all_data():
 @app.route("/bookmarks")
 def get_bookmarks_data():
     db_list = db.display_id_location()
+    entry_id = request.args.get('id')
+    entry = db_list[entry_id]
 
-    return render_template('bookmarks.html', db_list=db_list)
+    return render_template('bookmarks.html', db_list=db_list, entry=entry)
 
 
 
