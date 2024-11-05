@@ -62,6 +62,16 @@ class TestAirQualityAPI(TestCase):
 
         self.assertIn("Unable to fetch air quality data", str(context.exception))
 
+    @patch.dict("os.environ", {}, clear=True)
+    def test_missing_api_key(self):
+        """Test if an AirPollutionAPIError is raised when no API key is set."""
+        coordinates = [45, -93]
+
+        with self.assertRaises(ap.AirPollutionAPIError) as context:
+            ap.get_air_pollution(coordinates)
+
+        self.assertIn("Did you set OWM_API_KEY?", str(context.exception))
+
 
 if __name__ == "__main__":
     unittest.main()
