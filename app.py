@@ -10,6 +10,8 @@ import requests
 # initialize Flask app object
 app = Flask(__name__)
 
+stored_location = stored_aqi = stored_earthquake = stored_flood = None
+
 
 @app.route("/")
 def index():
@@ -23,21 +25,25 @@ def get_all_data():
 
     try:
         lat, long = gc.getCoordinates(location)
+        stored_location = location
     except gc.LocationNotFoundError:
-        return render_template("error.html")
+        return render_template("error.html", error_msg="Location not found.")
 
     try:
         earthquake_info = earthquake_api.earthquake_main(lat, long)
+        stored_earthquake = earthquake_info
     except earthquake_api.EarthquakeAPIError as e:
         earthquake_info = [e.msg]
 
     try:
         air_info = air_pollution_api.get_air_pollution([lat, long])
+        stored_aqi = air_info
     except air_pollution_api.AirPollutionAPIError:
         air_info = "Unable to fetch air pollution data."
 
     try:
         flood_info = api_flood.get_flood_risk(lat, long)
+        stored_flood = flood_info
     except api_flood.FloodAPIError:
         flood_info = "Unable to retrieve flood risk data."
 
@@ -52,11 +58,24 @@ def get_all_data():
 @app.route("/bookmarks")
 def get_bookmarks_data():
     db_list = db.display_id_location()
-    entry_id = request.args.get('id')
-    entry = db_list[entry_id]
+
+    if request.args:
+        entry_id = int(request.args.get('id'))
+        try:
+            entry = db.get_api_info(entry_id)
+        except:
+            return render_template("error.html", error_msg=f"No results found with id {entry_id}")
+    else:
+        entry = None
 
     return render_template('bookmarks.html', db_list=db_list, entry=entry)
 
+
+@app.route("/save-results")
+def save_results():
+    db.save_api_info(stored_location, stored_earthquake, stored_aqi, stored_flood)
+    db_list = db.display_id_location()
+    return render_template('bookmarks.html', db_list=db_list, entry=None)
 
 
 if __name__ == "__main__":
