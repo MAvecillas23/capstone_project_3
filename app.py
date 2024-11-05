@@ -71,6 +71,9 @@ def get_bookmarks_data():
         try:
             entry = db.get_api_info(entry_id)
         except:
+            # this except is bare because we couldn't figure out what the exact
+            # name of the exception was, so we couldn't import it
+            # (throws error "db.ResultsDoesNotExist" [is that even real?])
             return render_template("error.html", error_msg=f"No results found with id {entry_id}")
     else:
         entry = None
