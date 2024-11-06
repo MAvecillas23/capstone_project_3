@@ -1,9 +1,9 @@
-How Dangerous is My City
+# How Dangerous is My City
 
 This program lets user enter a location and retrieves data about earthquake activity, flood risk, and air 
 pollution for that area.
 
-Features
+# Features
 
 1.Earthquake Data
 
@@ -40,7 +40,7 @@ Features
 - Very poor air quality is 5
 
 
-Installation
+# Installation
 
 - Python 3.12 or later version
 - Install Flask and Requests
@@ -75,3 +75,43 @@ Windows:
    set FEMA_API_KEY=api key
    ```
 5. Run `python app.py` and access `http://localhost:5000`.
+
+# Screenshots
+## Installation and Setup
+### Activating Environment and Running Application
+*Activating the environment and running python app.py*
+![image](https://github.com/user-attachments/assets/70f3bda2-3da4-4906-abf0-ef0d69cd364c)
+
+### Homepage
+*Description: The main screen where users enter a location.*
+![image](https://github.com/user-attachments/assets/7d5a7a4c-7044-4ec3-8038-0168d41e5457)
+![image](https://github.com/user-attachments/assets/f5199fc8-c72e-40a7-ad6c-e1bd43334739)
+
+### Result page
+*Description: A sample results page showing flood risk assessment, air quality levels, and earthquake data.*
+
+![image](https://github.com/user-attachments/assets/79d131b4-9adf-4578-9d14-a24a2956498c)
+![image](https://github.com/user-attachments/assets/966cff1d-386c-4e11-9d26-68e8e1b2b36f)
+
+### Location not found
+*If an invalid or unrecognized location is entered, the user will see an error page with a message indicating that the location was not found. They will then have the option to return to the home page*
+![image](https://github.com/user-attachments/assets/00632bbd-7a87-4198-8995-17feb2265a1c)
+![image](https://github.com/user-attachments/assets/375a9539-54f6-4867-8581-770606d95d2f)
+
+## Bookmarks
+*A snapshots of the bookmarks feature, showing saved items and details.*
+![image](https://github.com/user-attachments/assets/6d2f0548-b7fc-4ec4-8771-8028ec44cc8e)
+![image](https://github.com/user-attachments/assets/1f30dd01-10aa-4b5f-afad-c4eee623b9b6)
+![image](https://github.com/user-attachments/assets/f139aa92-5d8f-4c2f-b6ba-35d3a4e3966d)
+
+
+
+
+
+
+
+
+
+
+
+
