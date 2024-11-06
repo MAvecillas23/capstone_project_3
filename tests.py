@@ -2,11 +2,13 @@ import requests
 import unittest
 from unittest import TestCase
 from unittest.mock import patch, Mock
+from peewee import SqliteDatabase
 
 import geocoding as gc
 import air_pollution_api as ap
 import earthquake_api as eq
 import api_flood as af
+import db
 
 
 class TestGeocoding(TestCase):
@@ -138,6 +140,72 @@ class TestFloodAPI(TestCase):
         response = af.get_flood_risk(*self.coordinates)
 
         self.assertEqual(response, "NOT SAFE")
+
+    @patch.dict("os.environ", {}, clear=True)
+    def test_missing_api_key(self):
+        """Test if a FloodAPIError is raised when no API key is set."""
+        coordinates = [45, -93]
+
+        with self.assertRaises(af.FloodAPIError) as context:
+            af.get_flood_risk(*coordinates)
+
+        self.assertIn("Did you forget to set FEMA_API_KEY?", str(context.exception))
+
+
+# use in-memory DB for testing
+test_db = SqliteDatabase(":memory:")
+
+
+class TestDatabase(TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        # set up the test DB with our schema
+        # keyword args ensure that Results will be bound to the test DB
+        cls.database = test_db  # class-scope reference to the test DB
+        db.db = cls.database  # override app.db with in-memory test DB
+        db.db.bind([db.Results], bind_refs=False, bind_backrefs=False)
+        db.db.connect()
+        db.db.create_tables([db.Results])
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.database.close()
+
+    def setUp(self):
+        # begin() begins a transaction with manual committing
+        self.database.begin()
+
+    def tearDown(self):
+        # roll back changes made during tests
+        self.database.rollback()
+
+    def test_get_api_info(self):
+        db.save_api_info("Somewhere City", ["earthquake", "otherquake"], 100, "SAFE")
+        saved_entry = db.Results.get(db.Results.location == "Somewhere City")
+        retrieved_data = db.get_api_info(saved_entry.id)
+
+        self.assertEqual(retrieved_data["location"], "Somewhere City")
+        self.assertEqual(retrieved_data["earthquake"], ["earthquake", "otherquake"])
+
+    def test_save_api_info(self):
+        db.save_api_info("Somewhere City", ["earthquake", "otherquake"], 100, "SAFE")
+        saved_entry = db.Results.get(db.Results.location == "Somewhere City")
+
+        self.assertEqual(saved_entry.location, "Somewhere City")
+        self.assertEqual(saved_entry.aqi, 100)
+        self.assertEqual(
+            saved_entry.earthquakes, "earthquake@otherquake"
+        )  # how the earthquake list is represented in the DB
+        self.assertEqual(saved_entry.flood, "SAFE")
+
+    def test_display_id_location(self):
+        db.save_api_info("City 1", [], 10, "SAFE")
+        db.save_api_info("City 2", ["earthquake"], 30, "unknown flood risk")
+        output = db.display_id_location()
+
+        self.assertIn("City 1", output[0])
+        self.assertIn("City 2", output[1])
 
 
 if __name__ == "__main__":

@@ -8,14 +8,6 @@ class FloodAPIError(Exception):
     def __init__(self, msg):
         self.msg = msg
 
-# FEMA API base URL
-url = 'https://api.nationalflooddata.com/v3/data'
-try:
-    api_key = os.environ.get("FEMA_API_KEY")
-except KeyError:
-    print("ERROR: FEMA_API_KEY not set")
-    raise FloodAPIError("Did you forget to set FEMA_API_KEY?")
-
 
 def get_flood_risk(lat, lng):
     """ Raises Flood_APIError, HTTPError, KeyError, IndexError  """
@@ -40,6 +32,14 @@ Raises KeyError and IndexError """
 
 
 def make_request(lat, lng):
+    # FEMA API base URL
+    url = 'https://api.nationalflooddata.com/v3/data'
+    try:
+        api_key = os.environ["FEMA_API_KEY"]
+    except KeyError:
+        print("ERROR: FEMA_API_KEY not set")
+        raise FloodAPIError("Did you forget to set FEMA_API_KEY?")
+
     headers = {'x-api-key': api_key}  # Required for FEMA API
 
     params = {
