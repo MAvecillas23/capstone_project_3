@@ -76,6 +76,9 @@ Windows:
    ```
 5. Run `python app.py` and access `http://localhost:5000`.
 
+### Unit tests
+Ensure environment variables are set as above, then run `python tests.py`.
+
 # Screenshots
 ## Installation and Setup
 ### Activating Environment and Running Application
