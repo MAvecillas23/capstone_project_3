@@ -1,9 +1,12 @@
+<!-- This page holds will be where all bookmarked data is saved, held, and displayed -->
+
 {% extends "base.html" %}
 
 {% block content %}
 <div style="margin:1em">
     <h1>Bookmarks</h1>
 
+<!-- Display every entry ID, location, and dated saved -->
     {% if db_list | length > 0 %}
     {% for entry in db_list %}
     <p>{{ entry }}</p>
@@ -12,13 +15,13 @@
     <p>No results in your bookmarks</p>
     {% endif %}
 
-
+<!-- user enters an id number that exists and entry earthquake, aqi, and flood data is displayed-->
     <p>Enter the id number of the bookmark you'd like more information on</p>
     <form action="/bookmarks">
         <input name="id" type="number">
         <input type="submit" value="Enter">
     </form>
-
+    <br>
     {% if entry %}
     <h2>Results:</h2>
 
@@ -28,22 +31,40 @@
     <div>
         <!--    Earthquake info goes here-->
         {% for earthquake in entry.earthquake %}
-        <p>{{ earthquake }}</p>
+        <p><u>{{ earthquake }} </u></p>
         {% endfor %}
     </div>
 
     <h3>Air Quality</h3>
     <div>
         <!--    air pollution info goes here-->
-        {{ entry.aqi }}
+        <table id="aqi-table">
+            <tr>
+                <th>Quality</th> <th>Index</th>
+            </tr>
+            <tr><td>Good</td> <td>1</td></tr>
+            <tr><td>Fair</td> <td>2</td></tr>
+            <tr><td>Moderate</td> <td>3</td></tr>
+            <tr><td>Poor</td> <td>4</td></tr>
+            <tr><td>Very Poor</td> <td>5</td></tr>
+        </table>
+        <br>
+        <p><b>Air Quality Index:</b> {{ entry.aqi }} </p>
     </div>
 
     <h3>Floods</h3>
     <div>
         <!--    flood info goes here-->
-        {{ entry.flood }}
+        <ul>
+            <li>Safe: Low flood risk; location generally safe from flooding.</li>
+            <li>Not Safe: High flood risk; location has significant flood risk.</li>
+            <li>Unknown: No specific flood risk information available for this location.</li>
+        </ul>
+        <p><b>Flood Risk:</b> {{ entry.flood }} </p>
     </div>
     {% endif %}
 </div>
 
+<!-- link that return back to homepage-->
+<a class="back-home" href="/">Try another city</a>
 {% endblock %}

@@ -1,3 +1,5 @@
+""" This program was used for testing in the beginning phases of development. Not used anymore."""
+
 import geocoding as gc
 
 
