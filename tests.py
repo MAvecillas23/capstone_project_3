@@ -141,6 +141,16 @@ class TestFloodAPI(TestCase):
 
         self.assertEqual(response, "NOT SAFE")
 
+    @patch.dict("os.environ", {}, clear=True)
+    def test_missing_api_key(self):
+        """Test if a FloodAPIError is raised when no API key is set."""
+        coordinates = [45, -93]
+
+        with self.assertRaises(af.FloodAPIError) as context:
+            af.get_flood_risk(*coordinates)
+
+        self.assertIn("Did you forget to set FEMA_API_KEY?", str(context.exception))
+
 
 # use in-memory DB for testing
 test_db = SqliteDatabase(":memory:")
