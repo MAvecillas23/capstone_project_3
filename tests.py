@@ -140,7 +140,7 @@ class TestFloodAPI(TestCase):
         response = af.get_flood_risk(*self.coordinates)
 
         self.assertEqual(response, "NOT SAFE")
-
+        
 
 # use in-memory DB for testing
 test_db = SqliteDatabase(":memory:")
