@@ -1,7 +1,7 @@
+""" This module calls the USGS api to get a list of earthquakes from a specific location """
+
 import requests
 from datetime import datetime
-import geocoding as gc
-
 
 class EarthquakeAPIError(Exception):
     """Raised when requests made to the earthquake API are unsuccessful."""
@@ -10,12 +10,13 @@ class EarthquakeAPIError(Exception):
         self.msg = msg
 
 
-# where all functions get called from
-# earthquake_main should be called from app.py with latitude and longitude coordinates
 def earthquake_main(latitude, longitude):
+    """ All earthquake_api functions are called from here.
+        app.py will call this function with latitude and longitude coordinates
+        Returns a list of earthquake string information back to app.py"""
 
     # query url with appropriate latitude and longitude parameters
-    # url is also querying for all earthquake data in the last 3 years in a 15 mile radius
+    # url is also querying for all earthquake data in the last 3 years in a 15 mile (24km) radius
     earthquake_url = (f'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson'
                       f'&starttime=2021-01-01'
                       f'&endtime=now'
@@ -24,34 +25,48 @@ def earthquake_main(latitude, longitude):
                       f'&maxradiuskm=24'
                       f'&minmagnitude=3.0')
 
+    # send to function to make api request return json data
+    earthquake_json = earthquake_data_request(earthquake_url)
 
-    earthquake_data = earthquake_data_request(earthquake_url)  # send url for earthquake api request
-    # if api returned json data, get location, magnitude, and date of each earthquake
-    get_wanted_data = location_magnitude_date(earthquake_data)
-    display_earthquake_data(get_wanted_data)
-    return get_wanted_data
+    # send to function to get specific data from json return list of earthquake
+    # locations, dates, magnitudes
+    earthquake_list = location_magnitude_date(earthquake_json)
 
-# api call request
-# returns all earthquake data
+    # for testing. Prints earthquake list
+    display_earthquake_data(earthquake_list)
+
+    # return earthquake_list back to app.py
+    return earthquake_list
+
+
 def earthquake_data_request(url):
-    earthquake_request = requests.get(url) # make url request
+    """ makes api request.
+        returns all of locations earthquake json data."""
+
+    earthquake_request = requests.get(url) # api request
     try:
-        earthquake_request.raise_for_status()  # checks that there are no http errors...raises an error if there is...
+        earthquake_request.raise_for_status()  # checks for http errors. raises error if there is
     except requests.HTTPError:
-        raise EarthquakeAPIError("Error retrieving earthquake data.")
-    earthquake_json = earthquake_request.json()  # convert earthquake request to json data
-    # errors are handled in app.py
+        raise EarthquakeAPIError("Error retrieving earthquake data.") # error message
+
+    # convert earthquake_request to json data
+    earthquake_json = earthquake_request.json()
     return earthquake_json
 
-# gets only the earthquake location, magnitude and converted datetime date and puts
-# that data in a list that is returned
-def location_magnitude_date(data):
+
+def location_magnitude_date(json_data):
+    """ From json data, get only all location, milliseconds of earthquake date (converted to datetime)
+        and magnitude data and append that information to a list.
+        Return said list """
+
     magnitude_location_date_list = []
 
-    if data["metadata"]["count"] < 1 or not data:
+    # if no data is returned from json, raise error with message
+    if json_data["metadata"]["count"] < 1 or not json_data:
         raise EarthquakeAPIError("No earthquake data available.")
-    list_of_earthquakes = data['features']
+    list_of_earthquakes = json_data['features']
 
+    # get location, date, and magnitude of all earthquakes. Append to list.
     for earthquake in list_of_earthquakes:
         wanted_data = earthquake['properties']
         location = wanted_data['place']
@@ -60,14 +75,16 @@ def location_magnitude_date(data):
         magnitude = wanted_data['mag']
         magnitude_location_date_list.append(f'{location} | Earthquake Date: {date} | Magnitude: {magnitude}')
 
+    # return
     return magnitude_location_date_list
 
-# displays the location, magnitude, data list data to the user
-# this function is for testing purposes
-def display_earthquake_data(needed_data):
-    if not needed_data:
+
+def display_earthquake_data(earthquake_list):
+    """ This function is ONLY for test purposes. Prints the earthquake list.
+        This ensures api works and data is being returned """
+    if not earthquake_list:
         print(f'There are no earthquakes in this location.')
     else:
-        for earthquake in needed_data:
+        for earthquake in earthquake_list:
             print(earthquake)
 

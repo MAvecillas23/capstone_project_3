@@ -1,3 +1,5 @@
+<!-- This is the error page. program is routed here when an error occurs -->
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -8,10 +10,11 @@
     </h3>
 
     <br>
-
-    <a href="/">Go back to homepage</a>
-    <br>
+<!--    links that take user back to homepage or bookmarks -->
+<div class="results-links">
+    <a id="link-home" href="/">Go back to homepage</a>
     <a href="/bookmarks">Go back to bookmarks</a>
+    </div>
 </div>
 
 {% endblock %}

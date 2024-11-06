@@ -1,3 +1,6 @@
+<!-- The results page. This is where after the user enters a location api modules are called and return
+respective data and is displayed to the user -->
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -11,17 +14,19 @@
     <div class="api-results">
         <h2>Are there earthquakes in my city?</h2>
         <p>Using information from the United States Geological Survey (USGS) we can gather all earthquakes:</p>
-        <p> Between now and the last 3 years</p>
-        <p> Within a 24-kilometer radius of your location</p>
-        <p> With a magnitude of 3.0 or higher (anything less is hardly felt by people)</p>
-        <p>Results:</p>
+        <ul>
+            <li> Between now and the last 3 years</li>
+            <li> Within a 24-kilometer radius of your location</li>
+            <li> With a magnitude of 3.0 or higher (anything less is hardly felt by people)</li>
+        </ul>
+        <b><p>Results:</p></b>
         {% for earthquake in earthquake_info %}
-        <p>{{ earthquake }}</p>
+        <p><u>{{ earthquake }}</u></p>
         {% endfor %}
 </div>
 <br>
 
-    <!--air pollution api results-->
+    <!--air pollution AQI results-->
     <div class="api-results">
         <h2>How is my air quality?:</h2>
         <p>Using <a href="https://openweathermap.org/api/air-pollution">OpenWeatherMap's</a> air quality index we can look
@@ -33,7 +38,8 @@
             <li>Sulphur Dioxide </li>
         </ul>
         <p>and more to determine your air quality:</p>
-        <table>
+<!--        AQI data explained -->
+        <table id="aqi-table">
             <tr>
                 <th>Quality</th> <th>Index</th>
             </tr>
@@ -43,8 +49,9 @@
             <tr><td>Poor</td> <td>4</td></tr>
             <tr><td>Very Poor</td> <td>5</td></tr>
         </table>
+        <br>
 
-        <p>The air quality index of your location is: {{ air_info }}</p>
+        <p><b>The air quality index of your location is:</b> {{ air_info }}</p>
 
 </div>
 <br>
@@ -64,14 +71,18 @@
         <li><span class="not-safe">Not Safe</span>: High flood risk; location has significant flood risk.</li>
         <li><span class="unknown">Unknown</span>: No specific flood risk information available for this location.</li>
     </ul>
+    <p>* Flood data only available in the United States</p>
 </div>
     <br>
+</div>
 
-
-    <a href="/save-results">Save results for later</a>
+<!-- links to homepage, link that saves the above results to the database and a link that takes user to the bookmarks
+page -->
+<div class="results-links">
+    <a id="save" href="/save-results">Save results for later</a>
     <!--Link that takes user to the homepage-->
     <a href="/">Try another city</a>
-    <a href="/bookmarks">View saved results</a>
+    <a id="books" href="/bookmarks">View saved results</a>
 </div>
 
 

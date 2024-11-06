@@ -90,3 +90,37 @@ body {
 #results-container {
     margin: 1em;
 }
+
+#home-bookmark {
+    text-align: center;
+    display: block;
+}
+
+.results-links {
+    text-align: center;
+    display: block;
+}
+
+#books {
+    margin: 10px;
+}
+
+#save {
+    margin: 10px
+}
+
+table, td, th {
+    text-align: center;
+    border: 1px black solid;
+}
+
+.back-home {
+    text-align: center;
+    display: block
+
+}
+
+#link-home {
+    margin:10px
+}
+
