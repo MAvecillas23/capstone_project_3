@@ -82,7 +82,10 @@ def get_bookmarks_data():
     """ if id number is valid get info from database that matches that id and display it to user.
         if id number isn't valid, redirect user to the error page"""
     if request.args:
-        entry_id = int(request.args.get('id'))
+        try:
+            entry_id = int(request.args.get('id'))
+        except ValueError:  # i.e. non-numerical input
+            return render_template("error.html", error_msg=f"Invalid ID.")
         try:
             entry = db.get_api_info(entry_id)
         except:
